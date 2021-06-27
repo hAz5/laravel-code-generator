@@ -11,7 +11,8 @@ class CodeGeneratorServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        dump('ss');die;
+        //dd
     }
 
     /**

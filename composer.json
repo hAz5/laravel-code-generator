@@ -5,6 +5,11 @@
     "require": {
         "laravel/laravel": "8"
     },
+    "autoload": {
+        "psr-4": {
+            "CG\\": "."
+        }
+    },
     "authors": [
         {
             "name": "hAz",
