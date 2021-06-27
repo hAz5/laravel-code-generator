@@ -1,2 +1,6 @@
 <?php
-//add routes here
+use Illuminate\Support\Facades\Route;
+
+Route::get('/cg', function () {
+
+});
