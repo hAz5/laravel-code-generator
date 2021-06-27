@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Traits;
+
+use {{ model }};
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+trait Has{{ columnStudyCase }}Trait
+{
+    /**
+     * @param Builder $builder Builder.
+     * @param array   ${{ str_plural($column) }} IDs.
+     *
+     * @return Builder
+     */
+    public function scopeWhere{{ columnStudyCase }}In(Builder $builder, array ${{ column }}): Builder
+    {
+        return $builder->whereIn(self::{{ columnConstName }}, ${{ column }});
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function ${{ column }}(): BelongsTo
+    {
+        return $this->belongsTo({{ modelName }}::class);
+    }
+}
