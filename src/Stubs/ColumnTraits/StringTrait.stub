@@ -1,0 +1,28 @@
+<?php
+
+namespace App\Traits;
+
+use Illuminate\Database\Eloquent\Builder;
+
+trait Has{{ columnStudyCase }}Trait
+{
+    /**
+     * @param Builder $builder     Builder.
+     * @param string  ${{ columnCamelCase }} {{ columnUpperCase }}.
+     * @return Builder
+     */
+    public function scopeWhere{{ columnStudyCase }}Like(Builder $builder, string ${{ columnCamelCase }}): Builder
+    {
+        return $builder->where(self::{{ columnConstName }}, 'like', "%${{ columnCamelCase }}%");
+    }
+
+    /**
+     * @param Builder $builder     Builder.
+     * @param string  ${{ columnCamelCase }} {{ columnUpperCase }}.
+     * @return Builder
+     */
+    public function scopeOrWhere{{ columnStudyCase }}Like(Builder $builder, string ${{ columnCamelCase }}): Builder
+    {
+        return $builder->orWhere(self::{{ columnConstName }}, 'like', "%${{ columnCamelCase }}%");
+    }
+}

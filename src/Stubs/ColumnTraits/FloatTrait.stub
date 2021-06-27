@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Traits;
+
+use Illuminate\Database\Eloquent\Builder;
+
+trait Has{{ columnStudyCase }}Trait
+{
+    /**
+     * @param Builder $builder      Builder.
+     * @param float ${{ columnCamelCase }} {{ columnUpperCase }}.
+     *
+     * @return Builder
+     */
+    public function scopeWhere{{ columnStudyCase }}GreaterThan(Builder $builder, float ${{ columnCamelCase }}): Builder
+    {
+        return $builder->where(self::{{ columnConstName }}, '>=', ${{ columnCamelCase }});
+    }
+
+    /**
+     * @param Builder $builder      Builder.
+     * @param float ${{ columnCamelCase }} {{ columnUpperCase }}.
+     *
+     * @return Builder
+     */
+    public function scopeWhere{{ columnStudyCase }}LessThan(Builder $builder, float ${{ columnCamelCase }}): Builder
+    {
+        return $builder->where(self::{{ columnConstName }}, '<=', ${{ columnCamelCase }});
+    }
+}

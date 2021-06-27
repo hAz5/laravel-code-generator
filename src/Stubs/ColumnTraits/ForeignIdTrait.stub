@@ -10,19 +10,19 @@ trait Has{{ columnStudyCase }}Trait
 {
     /**
      * @param Builder $builder Builder.
-     * @param array   ${{ str_plural($column) }} IDs.
+     * @param array   ${{ columnPlural }} IDs.
      *
      * @return Builder
      */
-    public function scopeWhere{{ columnStudyCase }}In(Builder $builder, array ${{ column }}): Builder
+    public function scopeWhere{{ columnStudyCase }}In(Builder $builder, array ${{ columnPlural }}): Builder
     {
-        return $builder->whereIn(self::{{ columnConstName }}, ${{ column }});
+        return $builder->whereIn(self::{{ columnConstName }}, ${{ columnPlural }});
     }
 
     /**
      * @return BelongsTo
      */
-    public function ${{ column }}(): BelongsTo
+    public function {{ modelCamelcase }}(): BelongsTo
     {
         return $this->belongsTo({{ modelName }}::class);
     }

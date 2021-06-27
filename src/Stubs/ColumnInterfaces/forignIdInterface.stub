@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Interfaces\Traits;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+interface Has{{ columnStudyCase }}interface
+{
+    const {{ columnConstName }} = '{{ column }}';
+
+    /**
+     * @param Builder $builder Builder.
+     * @param array   ${{ columnPlural }} IDs.
+     *
+     * @return Builder
+     */
+    public function scopeWhere{{ columnStudyCase }}In(Builder $builder, array ${{ columnPlural }}): Builder;
+
+    /**
+     * @return BelongsTo
+     */
+    public function {{ modelCamelcase }}(): BelongsTo;
+}
