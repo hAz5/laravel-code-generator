@@ -1,6 +1,6 @@
 <?php
 
-namespace GC\Generators;
+namespace CG\Generators;
 
 /**
  * Interface CodeGeneratorInterface
@@ -14,6 +14,7 @@ interface CodeGeneratorInterface
     const MODE_DATE = 'date';
     const MODE_EUM = 'enum';
     const MODE_FOREIGN = 'foreign';
+    const MODE_MODEL_INTERFACE = 'model_interface';
 
     /**
      * @return void

@@ -13,8 +13,6 @@ class CodeGeneratorServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        dump('ss');die;
-        //dd
     }
 
     /**
@@ -25,6 +23,6 @@ class CodeGeneratorServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadRoutesFrom(__DIR__ . '/routes.php');
-        $this->loadViewsFrom(__DIR__ . '/View');
+        $this->loadViewsFrom(__DIR__ . '/Resources/Views', 'CG');
     }
 }

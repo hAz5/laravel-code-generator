@@ -1,21 +1,11 @@
 <?php
-namespace GC\Generators;
+
+namespace CG\Generators;
 
 use Illuminate\Support\Str;
 
 class TraitGenerator extends CodeGenerator
 {
-    /**
-     * @return void
-     */
-    public function generate()
-    {
-        $method = $this->mode;
-        if (method_exists($this, $method)) {
-            $this->$method();
-        }
-    }
-
     /**
      * @return void
      */

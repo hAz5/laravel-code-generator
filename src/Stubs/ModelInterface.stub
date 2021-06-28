@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Interfaces\Models;
+
+use Illuminate\Database\Eloquent\Builder;
+
+interface {{ model }}Interface extends BaseModelInterface,
+{{ columnInterfaces }}
+{
+    const TABLE = '{{ modelTableName }}';
+
+    /**
+     * Filter scope.
+     *
+     * @param Builder    $builder Builder.
+     * @param {{ model }}Filter $filters Filters.
+     *
+     * @return Builder
+     */
+    public function scopeFilter(Builder $builder, {{ model }}Filter $filters): Builder;
+
+    /**
+     * Create new Object.
+     *
+     * @param array $attributes Attribute to create an Entity.
+     * @return {{ model }}Interface
+     */
+    public static function createObject(array $attributes): {{ model }}Interface;
+
+
+    /**
+     * Update an Object.
+     *
+     * @param array $attributes Attribute to update an Entity.
+     * @return {{ model }}Interface
+     */
+    public function updateObject(array $attributes): {{ model }}Interface;
+}

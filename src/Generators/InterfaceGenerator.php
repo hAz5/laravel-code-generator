@@ -1,32 +1,34 @@
 <?php
 
-namespace GC\Generators;
+namespace CG\Generators;
 
 use Illuminate\Support\Str;
 
-class InterfaceGenerator
+class InterfaceGenerator extends CodeGenerator
 {
-    /** @var string  */
-    private string $columnName;
+    public string $model;
+    public string $modelTableName;
 
-    /**
-     * TraitGenerator constructor.
-     * @param string $columnName
-     */
-
-    /**
-     * TraitGenerator constructor.
-     * @param string $columnName Column Name.
-     */
-    public function __construct(string $columnName)
+    public function modelInterface()
     {
-        $this->columnName = $columnName;
+        $model = $this->model;
+        $modelTableName = $this->modelTableName ?? (string)Str::of($model)->snake()->plural();
+        $variables = [
+            '{{ model }}' => Str::studly($model),
+            '{{ modelTableName }}' => $modelTableName,
+            '{{ columnInterfaces }}' => null,
+        ];
+
+
+        $stubPath = __DIR__ . '/../Stubs/ModelInterface.stub';
+        $outputPath = app_path() .  '/../storage/abas/' . Str::studly($model) . 'Interface.php';
+        $this->parser($variables, $stubPath, $outputPath);
     }
 
     /**
      * @return void
      */
-    public function generate()
+    public function foreign()
     {
         $columnName = $this->columnName;
         $variables = [
@@ -37,10 +39,8 @@ class InterfaceGenerator
             '{{ modelCamelcase }}' => Str::camel(Str::beforeLast($columnName, '_id')),
         ];
 
-        $file = file_get_contents(__DIR__ . '/Stubs/ColumnInterfaces/foreignIdInterface.stub');
-
-        $file = str_replace(array_keys($variables), array_values($variables), $file);
-
-        file_put_contents(app_path() .  '/../storage/abas/Has' . Str::studly($columnName) . 'Interface.php', $file);
+        $stubPath = __DIR__ . '/../Stubs/ColumnInterfaces/foreignIdInterface.stub';
+        $outputPath = app_path() .  '/../storage/abas/Has' . Str::studly($columnName) . 'Interface.php';
+        $this->parser($variables, $stubPath, $outputPath);
     }
 }
