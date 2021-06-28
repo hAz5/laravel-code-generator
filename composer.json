@@ -13,10 +13,6 @@
             "email": "masouddarvishi56@yahoo.com"
         }
     ],
-    "require": {
-        "php" : "^7.1.3|8.0.*",
-        "laravel/framework": "8.*|9.*"
-    },
     "autoload": {
         "psr-4": {
             "CG\\": "src/"
