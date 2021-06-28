@@ -32,7 +32,7 @@ class TraitGenerator extends CodeGenerator
             '{{ modelCamelcase }}' => Str::camel(Str::beforeLast($columnName, '_id')),
         ];
 
-        $file = file_get_contents(app_path('Stubs/ColumnTraits/ForeignIdTrait.stub'));
+        $file = file_get_contents(__DIR__ . '/Stubs/ColumnTraits/ForeignIdTrait.stub');
 
         $file = str_replace(array_keys($variables), array_values($variables), $file);
 
@@ -54,7 +54,7 @@ class TraitGenerator extends CodeGenerator
             '{{ columnUpperCase }}' => ucwords(str_replace('_', ' ', $columnName)),
         ];
 
-        $stubPath = app_path('Stubs/ColumnTraits/StringTrait.stub');
+        $stubPath = __DIR__ . '/Stubs/ColumnTraits/StringTrait.stub';
         $outputPath = app_path() .  '/../storage/abas/Has' . Str::studly($columnName) . 'Trait.php';
         $this->parser($variables, $stubPath, $outputPath);
     }
@@ -74,7 +74,7 @@ class TraitGenerator extends CodeGenerator
             '{{ columnUpperCase }}' => ucwords(str_replace('_', ' ', $columnName)),
         ];
 
-        $stubPath = app_path('Stubs/ColumnTraits/IntegerTrait.stub');
+        $stubPath = __DIR__ . '/Stubs/ColumnTraits/IntegerTrait.stub';
         $outputPath = app_path() .  '/../storage/abas/Has' . Str::studly($columnName) . 'Trait.php';
         $this->parser($variables, $stubPath, $outputPath);
     }
@@ -94,7 +94,7 @@ class TraitGenerator extends CodeGenerator
             '{{ columnUpperCase }}' => ucwords(str_replace('_', ' ', $columnName)),
         ];
 
-        $stubPath = app_path('Stubs/ColumnTraits/FloatTrait.stub');
+        $stubPath = __DIR__ . '/Stubs/ColumnTraits/FloatTrait.stub';
         $outputPath = app_path() .  '/../storage/abas/Has' . Str::studly($columnName) . 'Trait.php';
         $this->parser($variables, $stubPath, $outputPath);
     }

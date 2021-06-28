@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Interfaces\Traits;
+
+use Illuminate\Database\Eloquent\Builder;
+
+interface Has{{ columnStudyCase }}Interface
+{
+    const {{ columnConstName }} = '{{ column }}';
+
+    /**
+     * @param Builder $builder     Builder.
+     * @param string  ${{ columnCamelCase }} {{ columnUpperCase }}.
+     * @return Builder
+     */
+    public function scopeWhere{{ columnStudyCase }}Like(Builder $builder, string ${{ columnCamelCase }}): Builder;
+
+    /**
+     * @param Builder $builder     Builder.
+     * @param string  ${{ columnCamelCase }} {{ columnUpperCase }}.
+     * @return Builder
+     */
+    public function scopeOrWhere{{ columnStudyCase }}Like(Builder $builder, string ${{ columnCamelCase }}): Builder;
+}

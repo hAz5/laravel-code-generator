@@ -1,5 +1,7 @@
 <?php
 
+namespace CG;
+
 use Illuminate\Support\ServiceProvider;
 
 class CodeGeneratorServiceProvider extends ServiceProvider
@@ -22,7 +24,7 @@ class CodeGeneratorServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadRoutesFrom(__DIR__ . '/src/routes.php');
-        $this->loadViewsFrom(__DIR__ . '/src/View');
+        $this->loadRoutesFrom(__DIR__ . '/routes.php');
+        $this->loadViewsFrom(__DIR__ . '/View');
     }
 }

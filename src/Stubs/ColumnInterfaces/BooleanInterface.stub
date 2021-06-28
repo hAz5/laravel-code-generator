@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Interfaces\Traits;
+
+use Illuminate\Database\Eloquent\Builder;
+
+interface Has{{ columnStudyCase }}Trait
+{
+    const {{ columnConstName }} = '{{ column }}';
+
+    /**
+     * @param Builder $builder Builder.
+     *
+     * @return Builder
+     */
+    public function scopeWhere{{ columnStudyCase }}(Builder $builder): Builder;
+
+    /**
+     * @param Builder $builder Builder.
+     *
+     * @return Builder
+     */
+    public function scopeWhereNot{{ columnStudyCase }}(Builder $builder): Builder;
+}

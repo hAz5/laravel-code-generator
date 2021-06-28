@@ -11,9 +11,9 @@ trait Has{{ columnStudyCase }}Trait
      *
      * @return Builder
      */
-    public function scopeWhereCanBuy(Builder $builder): Builder
+    public function scopeWhere{{ columnStudyCase }}(Builder $builder): Builder
     {
-        return $builder->where(self::CAN_BUY, true);
+        return $builder->where(self::{{ columnConstName }}, true);
     }
 
     /**
@@ -21,8 +21,8 @@ trait Has{{ columnStudyCase }}Trait
      *
      * @return Builder
      */
-    public function scopeWhereCantBuy(Builder $builder): Builder
+    public function scopeWhereNot{{ columnStudyCase }}(Builder $builder): Builder
     {
-        return $builder->where(self::CAN_BUY, false);
+        return $builder->where(self::{{ columnConstName }}, false);
     }
 }

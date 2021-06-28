@@ -2,14 +2,7 @@
     "name": "haz5/code-generator",
     "description": "laravel code generator",
     "type": "library",
-    "require": {
-        "laravel/laravel": "8"
-    },
-    "autoload": {
-        "psr-4": {
-            "CG\\": "."
-        }
-    },
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "hAz",
@@ -19,5 +12,21 @@
             "name": "Joker",
             "email": "masouddarvishi56@yahoo.com"
         }
-    ]
+    ],
+    "require": {
+        "php" : "^7.1.3|8.0.*",
+        "laravel/framework": "8.*|9.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "CG\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CG\\CodeGeneratorServiceProvider"
+            ]
+        }
+    }
 }

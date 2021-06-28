@@ -37,7 +37,7 @@ class InterfaceGenerator
             '{{ modelCamelcase }}' => Str::camel(Str::beforeLast($columnName, '_id')),
         ];
 
-        $file = file_get_contents(app_path('Stubs/ColumnInterfaces/forignIdInterface.stub'));
+        $file = file_get_contents(__DIR__ . '/Stubs/ColumnInterfaces/foreignIdInterface.stub');
 
         $file = str_replace(array_keys($variables), array_values($variables), $file);
 
