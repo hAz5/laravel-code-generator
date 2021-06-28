@@ -1,12 +1,7 @@
 <?php
 
-use CG\Generators\CodeGeneratorInterface;
-use CG\Generators\InterfaceGenerator;
+use CG\Controllers\CodeGeneratorController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/cg', function () {
-    $generator = new InterfaceGenerator(CodeGeneratorInterface::MODE_MODEL_INTERFACE);
-    $generator->model = 'User';
-//    $generator->model = 'User';
-    $generator->generate();
-});
+Route::get('/cg', [CodeGeneratorController::class, 'index']);
+Route::post('/cg/generate', [CodeGeneratorController::class, 'generate']);
