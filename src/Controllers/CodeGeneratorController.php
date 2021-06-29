@@ -26,7 +26,12 @@ class CodeGeneratorController extends Controller
      */
     public function generate(Request $request)
     {
-        dump($request->all());die;
+       $model = $request->get('model');
+       $columns = $request->get('columns');
+        //generate migration
+        
+        // gnerate model and model interface
+
     }
 
 }
