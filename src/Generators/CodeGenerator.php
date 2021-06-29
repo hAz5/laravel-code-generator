@@ -55,4 +55,15 @@ abstract class CodeGenerator implements CodeGeneratorInterface
         }
         file_put_contents($outputPath, $file);
     }
+
+    /**
+     * get const of column.
+     *
+     * @param string $columnName Column Name.
+     * @return string
+     */
+    public function getColumnConstName(string $columnName): string
+    {
+        return Str::upper($columnName);
+    }
 }
