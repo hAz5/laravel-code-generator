@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Filters;
+
+use App\Filters\Filters;
+
+class {{ columnStudyCase }}Filter extends Filters
+{
+    {{ filtersTrait }}
+
+    /**
+     * Registered filters to operate upon.
+     *
+     * @var array
+     */
+    protected array $filters = [
+        'ids',
+        {{ filtersNames }}
+    ];
+
+    /**
+     * Registered filters to operate upon.
+     *
+     * @var array
+     */
+    protected array $attributes = [
+        'ids' => 'array',
+         {{ attributes }}
+    ];
+}

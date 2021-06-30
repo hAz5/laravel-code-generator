@@ -22,7 +22,7 @@ class ColumnTraitGenerator extends CodeGenerator
             '{{ modelName }}' => Str::studly(Str::beforeLast($columnName, '_id')),
             '{{ modelCamelcase }}' => Str::camel(Str::beforeLast($columnName, '_id')),
             '{{ columnCamelCase }}' => Str::camel($columnName),
-            '{{ columnUpperCase }}' => Str::of($columnName)->snake(' ')->studly(),
+            '{{ columnUpperCase }}' => (string) Str::of($columnName)->snake(' ')->studly(),
         ];
     }
 
@@ -31,10 +31,10 @@ class ColumnTraitGenerator extends CodeGenerator
      */
     public function foreign()
     {
-        $variables = $this->getVariables();
 
-        $stubPath = __DIR__ . '/Stubs/ColumnTraits/ForeignIdTrait.stub';
-        $outputPath = $this->getColumnTraitFileName($this->columnName);
+        $variables = $this->getVariables();
+        $stubPath = __DIR__ . '/../Stubs/ColumnTraits/ForeignIdTrait.stub';
+        $outputPath = $this->getColumnTraitFullPath($this->columnName);
         $this->parser($variables, $stubPath, $outputPath);
     }
 
@@ -58,7 +58,7 @@ class ColumnTraitGenerator extends CodeGenerator
     {
         $variables = $this->getVariables();
 
-        $stubPath = __DIR__ . '/Stubs/ColumnTraits/IntegerTrait.stub';
+        $stubPath = __DIR__ . '/../Stubs/ColumnTraits/IntegerTrait.stub';
         $outputPath = $this->getColumnTraitFullPath($this->columnName);
         $this->parser($variables, $stubPath, $outputPath);
     }
@@ -70,7 +70,19 @@ class ColumnTraitGenerator extends CodeGenerator
     {
         $variables = $this->getVariables();
 
-        $stubPath = __DIR__ . '/Stubs/ColumnTraits/FloatTrait.stub';
+        $stubPath = __DIR__ . '/../Stubs/ColumnTraits/FloatTrait.stub';
+        $outputPath = $this->getColumnTraitFullPath($this->columnName);
+        $this->parser($variables, $stubPath, $outputPath);
+    }
+
+    /**
+     * @return void
+     */
+    public function boolean()
+    {
+        $variables = $this->getVariables();
+
+        $stubPath = __DIR__ . '/../Stubs/ColumnTraits/BooleanTrait.stub';
         $outputPath = $this->getColumnTraitFullPath($this->columnName);
         $this->parser($variables, $stubPath, $outputPath);
     }

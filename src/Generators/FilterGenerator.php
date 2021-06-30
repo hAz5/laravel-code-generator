@@ -9,22 +9,47 @@ class FilterGenerator extends CodeGenerator
     public string $model;
     public string $modelTableName;
 
-//    public function modelInterface()
-//    {
+    public function attributesType($type): string
+    {
+        switch ($type) {
+            case 'integer' :
+            case 'foreign':
+                return 'int';
+            case 'boolean' :
+                return 'bool';
+            case 'float' :
+            case 'string' :
+                return $type;
+        }
+
+    }
+
+    public function model($model, $columns)
+    {
 //        $model = $this->model;
-//        $modelTableName = $this->modelTableName ?? (string)Str::of($model)->snake()->plural();
-//        $variables = [
-//            '{{ model }}' => Str::studly($model),
-//            '{{ modelTableName }}' => $modelTableName,
-//            '{{ columnInterfaces }}' => null,
-//        ];
-//
-//
-//        $stubPath = __DIR__ . '/../Stubs/ModelInterface.stub';
-//        $outputPath = app_path() .  '/../storage/Model/' . Str::studly($model) . 'Interface.php';
-//        $this->parser($variables, $stubPath, $outputPath);
-//    }
-//
+        $filtersTrait = [];
+        $filtersName = [];
+        $attributes = [];
+        foreach ($columns as $column) {
+            $filter = Str::of($column['fieldName'])->camel();
+            $filtersTrait [] = 'use Filter' . Str::studly($column['fieldName']) . 'Trait;';
+            $filtersName [] = '\'' . $filter . '\'';
+            $attributes [] = '\'' . $filter . '\' => \'' . $this->attributesType($column['type']) . '\'';
+        }
+
+        $variables = [
+            '{{ columnStudyCase }}' => Str::of($model)->studly(),
+            '{{ filtersTrait }}' => implode("\n    ", $filtersTrait),
+            '{{ filtersNames }}' => implode(",\n        ", $filtersName),
+            '{{ attributes }}' => implode(",\n        ", $attributes)
+        ];
+
+
+        $stubPath = __DIR__ . '/../Stubs/ModelFilter.stub';
+        $outputPath = app_path() . '/../storage/Model/' . Str::studly($model) . 'Filter.php';
+        $this->parser($variables, $stubPath, $outputPath);
+    }
+
     /**
      * @return void
      */
@@ -43,7 +68,7 @@ class FilterGenerator extends CodeGenerator
         ];
 
         $stubPath = __DIR__ . '/../Stubs/ColumnFilters/FilterForeignTrait.stub';
-        $outputPath = app_path() .  '/../storage/Filters/Filter' . Str::studly($columnName) . 'Trait.php';
+        $outputPath = app_path() . '/../storage/Filters/Filter' . Str::studly($columnName) . 'Trait.php';
         $this->parser($variables, $stubPath, $outputPath);
     }
 
@@ -65,7 +90,7 @@ class FilterGenerator extends CodeGenerator
         ];
 
         $stubPath = __DIR__ . '/../Stubs/ColumnFilters/FilterBooleanTrait.stub';
-        $outputPath = app_path() .  '/../storage/ColumnFilters/Filter' . Str::studly($columnName) . 'Trait.php';
+        $outputPath = app_path() . '/../storage/Filters/Filter' . Str::studly($columnName) . 'Trait.php';
         $this->parser($variables, $stubPath, $outputPath);
     }
 
@@ -87,7 +112,7 @@ class FilterGenerator extends CodeGenerator
         ];
 
         $stubPath = __DIR__ . '/../Stubs/ColumnFilters/FilterFloatTrait.stub';
-        $outputPath = app_path() .  '/../storage/Filters/Filter' . Str::studly($columnName) . 'Trait.php';
+        $outputPath = app_path() . '/../storage/Filters/Filter' . Str::studly($columnName) . 'Trait.php';
         $this->parser($variables, $stubPath, $outputPath);
     }
 
@@ -109,7 +134,7 @@ class FilterGenerator extends CodeGenerator
         ];
 
         $stubPath = __DIR__ . '/../Stubs/ColumnFilters/FilterIntegerTrait.stub';
-        $outputPath = app_path() .  '/../storage/Filters/Filter' . Str::studly($columnName) . 'Trait.php';
+        $outputPath = app_path() . '/../storage/Filters/Filter' . Str::studly($columnName) . 'Trait.php';
         $this->parser($variables, $stubPath, $outputPath);
     }
 
@@ -131,7 +156,7 @@ class FilterGenerator extends CodeGenerator
         ];
 
         $stubPath = __DIR__ . '/../Stubs/ColumnFilters/FilterStringTrait.stub';
-        $outputPath = app_path() .  '/../storage/Filters/Filter' . Str::studly($columnName) . 'Trait.php';
+        $outputPath = app_path() . '/../storage/Filters/Filter' . Str::studly($columnName) . 'Trait.php';
         $this->parser($variables, $stubPath, $outputPath);
     }
 }

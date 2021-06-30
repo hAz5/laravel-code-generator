@@ -32,9 +32,13 @@ class CodeGeneratorController extends Controller
        $model = $request->get('model');
        $columns = $request->get('columns');
 
+       // generate model filter
+        (new FilterGenerator('',''))->model($model['name'], $columns);
+
+        // columns
        foreach ($columns as $column){
-//           (new InterfaceGenerator($column['fieldName'], $column['type']))->generate();
-//           (new ColumnTraitGenerator($column['fieldName'], $column['type']))->generate();
+           (new InterfaceGenerator($column['fieldName'], $column['type']))->generate();
+           (new ColumnTraitGenerator($column['fieldName'], $column['type']))->generate();
            (new FilterGenerator($column['fieldName'], $column['type']))->generate();
        }
 
