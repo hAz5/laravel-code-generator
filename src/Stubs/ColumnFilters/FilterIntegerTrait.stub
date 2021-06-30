@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Traits\Filters;
+
+use Illuminate\Database\Eloquent\Builder;
+
+trait Filter{{ columnStudyCase }}Trait
+{
+    /**
+     * Filter by Greater Than {{ columnStudyCase }}.
+     *
+     * @param integer ${{ columnCamel }} {{ columnStudyCase }}.
+     *
+     * @return Builder
+     */
+    public function {{ columnCamel }}GreaterThan(integer ${{ columnCamel }}): Builder
+    {
+        return $this->builder->where{{ columnStudyCase }}GreaterThan(${{ columnCamel }});
+    }
+
+    /**
+     * Filter by Less Than {{ columnStudyCase }}.
+     *
+     * @param integer ${{ columnCamel }} {{ columnStudyCase }}.
+     *
+     * @return Builder
+     */
+    public function {{ columnCamel }}LessThan(integer ${{ columnCamel }}): Builder
+    {
+        return $this->builder->where{{ columnStudyCase }}LessThan(${{ columnCamel }});
+    }
+}

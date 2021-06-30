@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Traits\Filters;
+
+use Illuminate\Database\Eloquent\Builder;
+
+trait Filter{{ columnStudyCase }}Trait
+{
+    /**
+     * Filter by {{ columnStudyCase }}.
+     *
+     * @param string ${{ columnCamel }} {{ columnStudyCase }}.
+     *
+     * @return Builder
+     */
+    protected function {{ columnCamel }}(string ${{ columnCamel }}): Builder
+    {
+        return $this->builder->where{{ columnStudyCase }}Like(${{ columnCamel }});
+    }
+}

@@ -2,6 +2,9 @@
 
 namespace CG\Controllers;
 
+use CG\Generators\ColumnTraitGenerator;
+use CG\Generators\FilterGenerator;
+use CG\Generators\InterfaceGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -28,8 +31,16 @@ class CodeGeneratorController extends Controller
     {
        $model = $request->get('model');
        $columns = $request->get('columns');
+
+       foreach ($columns as $column){
+//           (new InterfaceGenerator($column['fieldName'], $column['type']))->generate();
+//           (new ColumnTraitGenerator($column['fieldName'], $column['type']))->generate();
+           (new FilterGenerator($column['fieldName'], $column['type']))->generate();
+       }
+
+       return response($columns, 400);
         //generate migration
-        
+
         // gnerate model and model interface
 
     }

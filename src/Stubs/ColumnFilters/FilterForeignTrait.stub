@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Traits\Filters;
+
+use Illuminate\Database\Eloquent\Builder;
+
+trait Filter{{ columnStudyCase }}Trait
+{
+    /**
+     * Filter by {{ columnUpperCase }}.
+     *
+     * @param integer ${{ columnCamel }} {{ columnUpperCase }}.
+     *
+     * @return Builder
+     */
+    protected function {{ columnCamel }}(int ${{ columnCamel }}): Builder
+    {
+        return $this->builder->where{{ columnStudyCase }}(${{ columnCamel }});
+    }
+
+    /**
+     * Filter by {{ columnUpperCase }}.
+     *
+     * @param array ${{ columnCamel }}s {{ columnUpperCase }}s.
+     *
+     * @return Builder
+     */
+    protected function {{ columnCamel }}s(array ${{ columnCamel }}s): Builder
+    {
+        return $this->builder->where{{ columnStudyCase }}sIn(${{ columnCamel }}s);
+    }
+}

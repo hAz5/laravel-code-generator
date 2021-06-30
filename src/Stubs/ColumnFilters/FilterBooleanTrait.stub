@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Traits\Filters;
+
+use Illuminate\Database\Eloquent\Builder;
+
+trait Filter{{ columnStudyCase }}Trait
+{
+    /**
+     * Filter By {{ columnUpperCase }}
+     *
+     * @param boolean ${{ columnCamel }} {{ columnUpperCase }}.
+     *
+     * @return Builder
+     */
+    protected function {{ columnCamel }}(bool ${{ columnCamel }}): Builder
+    {
+        return $this->builder->where{{ columnStudyCase }}(${{ columnCamel }});
+    }
+}

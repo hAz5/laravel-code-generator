@@ -4,7 +4,7 @@ namespace CG\Generators;
 
 use Illuminate\Support\Str;
 
-class TraitGenerator extends CodeGenerator
+class ColumnTraitGenerator extends CodeGenerator
 {
 
     /**
@@ -21,13 +21,15 @@ class TraitGenerator extends CodeGenerator
             '{{ columnConstName }}' => $this->getColumnConstName($columnName),
             '{{ modelName }}' => Str::studly(Str::beforeLast($columnName, '_id')),
             '{{ modelCamelcase }}' => Str::camel(Str::beforeLast($columnName, '_id')),
+            '{{ columnCamelCase }}' => Str::camel($columnName),
+            '{{ columnUpperCase }}' => Str::of($columnName)->snake(' ')->studly(),
         ];
     }
 
     /**
      * @return void
      */
-    private function foreign()
+    public function foreign()
     {
         $variables = $this->getVariables();
 
@@ -39,7 +41,7 @@ class TraitGenerator extends CodeGenerator
     /**
      * @return void
      */
-    private function string()
+    public function string()
     {
         $columnName = $this->columnName;
         $variables = $this->getVariables();
@@ -52,7 +54,7 @@ class TraitGenerator extends CodeGenerator
     /**
      * @return void
      */
-    private function integer()
+    public function integer()
     {
         $variables = $this->getVariables();
 
@@ -64,7 +66,7 @@ class TraitGenerator extends CodeGenerator
     /**
      * @return void
      */
-    private function float()
+    public function float()
     {
         $variables = $this->getVariables();
 
