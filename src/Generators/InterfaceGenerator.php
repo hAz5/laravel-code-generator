@@ -9,16 +9,20 @@ class InterfaceGenerator extends CodeGenerator
     public string $model;
     public string $modelTableName;
 
-    public function modelInterface()
+    public function modelInterface($columns)
     {
         $model = $this->model;
         $modelTableName = $this->modelTableName ?? (string)Str::of($model)->snake()->plural();
+        $columnsInterface = [];
+        foreach ($columns as $column) {
+            $columnsInterface[] = 'Has' . Str::studly($column['fieldName']) . 'Interface';
+        }
+
         $variables = [
             '{{ model }}' => Str::studly($model),
             '{{ modelTableName }}' => $modelTableName,
-            '{{ columnInterfaces }}' => null,
+            '{{ columnInterfaces }}' => implode(', ', $columnsInterface),
         ];
-
 
         $stubPath = __DIR__ . '/../Stubs/ModelInterface.stub';
         $outputPath = app_path() .  '/../storage/Model/' . Str::studly($model) . 'Interface.php';

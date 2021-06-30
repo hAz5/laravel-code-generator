@@ -5,6 +5,7 @@ namespace CG\Controllers;
 use CG\Generators\ColumnTraitGenerator;
 use CG\Generators\FilterGenerator;
 use CG\Generators\InterfaceGenerator;
+use CG\Generators\ModelGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -29,24 +30,23 @@ class CodeGeneratorController extends Controller
      */
     public function generate(Request $request)
     {
-       $model = $request->get('model');
-       $columns = $request->get('columns');
+        $model = $request->get('model');
+        $columns = $request->get('columns');
 
-       // generate model filter
-        (new FilterGenerator('',''))->model($model['name'], $columns);
+        // generate model filter
+        (new FilterGenerator('', ''))->model($model['name'], $columns);
+        foreach ($columns as $column) {
+            (new InterfaceGenerator($column['fieldName'], $column['type']))->generate();
+            (new ColumnTraitGenerator($column['fieldName'], $column['type']))->generate();
+            (new FilterGenerator($column['fieldName'], $column['type']))->generate();
+        }
+        $interfaceGenerator = new InterfaceGenerator('', '');
+        $interfaceGenerator->model = $model['name'];
+        $interfaceGenerator->modelTableName = $model['table'];
+        $interfaceGenerator->modelInterface($columns);
 
-        // columns
-       foreach ($columns as $column){
-           (new InterfaceGenerator($column['fieldName'], $column['type']))->generate();
-           (new ColumnTraitGenerator($column['fieldName'], $column['type']))->generate();
-           (new FilterGenerator($column['fieldName'], $column['type']))->generate();
-       }
-
-       return response($columns, 400);
-        //generate migration
-
-        // gnerate model and model interface
-
+        (new ModelGenerator())->model($model['name'], $columns);
+        return response($columns, 400);
     }
 
 }

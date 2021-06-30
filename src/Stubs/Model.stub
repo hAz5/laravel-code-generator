@@ -3,12 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-use App\Filters\{{ model }};
-use App\Interfaces\Models\{{ modelInterface }};
 
 class {{ model }} extends BaseModel implements {{ modelInterface }}
 {
-
+    {{ columnsTrait }}
 
     /**
      * The attributes that are mass assignable.

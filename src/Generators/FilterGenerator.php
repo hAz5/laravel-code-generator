@@ -26,7 +26,6 @@ class FilterGenerator extends CodeGenerator
 
     public function model($model, $columns)
     {
-//        $model = $this->model;
         $filtersTrait = [];
         $filtersName = [];
         $attributes = [];

@@ -23,6 +23,7 @@ interface {{ model }}Interface extends BaseModelInterface,
      * Create new Object.
      *
      * @param array $attributes Attribute to create an Entity.
+     *
      * @return {{ model }}Interface
      */
     public static function createObject(array $attributes): {{ model }}Interface;
@@ -32,6 +33,7 @@ interface {{ model }}Interface extends BaseModelInterface,
      * Update an Object.
      *
      * @param array $attributes Attribute to update an Entity.
+     *
      * @return {{ model }}Interface
      */
     public function updateObject(array $attributes): {{ model }}Interface;
