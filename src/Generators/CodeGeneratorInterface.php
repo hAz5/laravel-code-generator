@@ -7,14 +7,13 @@ namespace CG\Generators;
  */
 interface CodeGeneratorInterface
 {
-    const MODE_STRING = 'string';
-    const MODE_INTEGER = 'integer';
-    const MODE_FLOAT = 'float';
-    const MODE_BOOLEAN = 'boolean';
-    const MODE_DATE = 'date';
-    const MODE_EUM = 'enum';
-    const MODE_FOREIGN = 'foreign';
-    const MODE_MODEL_INTERFACE = 'model_interface';
+    const COLUMN_STRING = 'string';
+    const COLUMN_INTEGER = 'integer';
+    const COLUMN_FLOAT = 'float';
+    const COLUMN_BOOLEAN = 'boolean';
+    const COLUMN_DATE = 'date';
+    const COLUMN_EUM = 'enum';
+    const COLUMN_FOREIGN = 'foreign';
 
     /**
      * @return void

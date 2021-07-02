@@ -23,7 +23,7 @@ abstract class CodeGenerator implements CodeGeneratorInterface
      * @param string $columnName Column Name.
      * @param string $mode       Mode.
      */
-    public function __construct(string $columnName, string $mode = self::MODE_STRING)
+    public function __construct(string $columnName, string $mode = self::COLUMN_STRING)
     {
         $this->columnName = $columnName;
         $this->mode = $mode;

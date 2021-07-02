@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 class TestGenerator extends CodeGenerator
 {
-    public function __construct(string $columnName, string $mode = self::MODE_STRING)
+    public function __construct(string $columnName, string $mode = self::COLUMN_STRING)
     {
         parent::__construct(null, null);
     }
