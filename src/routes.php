@@ -22,9 +22,9 @@ $columns = [
     ],
 ];
 Route::get('/masoud', function () use ($columns){
-    $models = 'product';
+    $models = 'SaleSystem';
 
-    (new \CG\Generators\MigrationGenerator('', ''))->create($models, $columns);
+    (new \CG\Generators\RepositoryGenerator('', ''))->create($models);
 });
 Route::get('/cg', [CodeGeneratorController::class, 'index']);
 Route::post('/cg/generate', [CodeGeneratorController::class, 'generate']);
