@@ -46,7 +46,12 @@ class CodeGeneratorController extends Controller
         $interfaceGenerator->modelInterface($columns);
 
         (new ModelGenerator())->model($model['name'], $columns);
-        return response($columns, 400);
+        (new \CG\Generators\RequestGenerator('', ''))->create($model['name'], $columns);
+        (new \CG\Generators\ResourceGenerator('', ''))->create($model['name'], $columns);
+
+        return response([
+            'postman' =>  (new \CG\Generators\PostmanGenerator('', ''))->create($columns)
+        ], 400);
     }
 
 }

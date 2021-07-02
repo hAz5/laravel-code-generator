@@ -9,15 +9,6 @@ interface {{ model }}Interface extends BaseModelInterface,
 {
     const TABLE = '{{ modelTableName }}';
 
-    /**
-     * Filter scope.
-     *
-     * @param Builder    $builder Builder.
-     * @param {{ model }}Filter $filters Filters.
-     *
-     * @return Builder
-     */
-    public function scopeFilter(Builder $builder, {{ model }}Filter $filters): Builder;
 
     /**
      * Create new Object.

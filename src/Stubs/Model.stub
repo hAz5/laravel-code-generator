@@ -18,20 +18,6 @@ class {{ model }} extends BaseModel implements {{ modelInterface }}
     ];
 
     /**
-     * Filter scope.
-     *
-     * @param Builder            $builder Builder.
-     * @param {{ modelFilter }} $filters Filters.
-     *
-     * @return Builder
-     */
-    public function scopeFilter(Builder $builder, {{ modelFilter }} $filters): Builder
-    {
-        return $filters->apply($builder);
-    }
-
-
-    /**
      * Create new ContactGroup.
      *
      * @param array $data Data.
