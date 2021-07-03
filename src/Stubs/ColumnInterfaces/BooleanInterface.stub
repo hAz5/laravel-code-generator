@@ -4,7 +4,7 @@ namespace App\Interfaces\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 
-interface Has{{ columnStudyCase }}Trait
+interface Has{{ columnStudyCase }}Interface
 {
     const {{ columnConstName }} = '{{ column }}';
 

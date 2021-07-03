@@ -19,6 +19,7 @@ class TestGenerator extends CodeGenerator
                 return 9999999;
         }
     }
+
     /**
      * @param string $model
      * @param array $columns

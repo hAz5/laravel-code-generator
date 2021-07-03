@@ -22,7 +22,7 @@ class PostmanGenerator extends CodeGenerator
 
     }
 
-    public function create(array $columns): array
+    public function create($model, array $columns): array
     {
         $queryString = '';
         $fields = [];
@@ -34,10 +34,18 @@ class PostmanGenerator extends CodeGenerator
             // create store and update request body
             $fields[$column['fieldName']] = $value;
         }
+        $data = [
+            'queryString' => $queryString,
+            'fields' => $fields
+        ];
+        $directoryPath = app_path() . '/../storage/Postman';
 
-       return [
-           'queryString' => $queryString,
-           'fields' => $fields
-       ];
+        if (!is_dir($directoryPath)) {
+            mkdir($directoryPath, 0777, true);
+        }
+        file_put_contents($directoryPath . '/' . Str::studly($model) . 'Postman.json', json_encode($data));
+
+
+       return $data;
     }
 }

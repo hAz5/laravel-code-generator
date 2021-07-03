@@ -55,7 +55,7 @@ class CodeGeneratorController extends Controller
         (new \CG\Generators\TestGenerator('', ''))->create($model['name'], $columns);
 
         return response([
-            'postman' =>  (new \CG\Generators\PostmanGenerator('', ''))->create($columns)
+            'postman' =>  (new \CG\Generators\PostmanGenerator('', ''))->create($model['name'], $columns)
         ], 400);
     }
 

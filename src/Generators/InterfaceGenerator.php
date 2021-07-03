@@ -129,4 +129,22 @@ class InterfaceGenerator extends CodeGenerator
         $outputPath = app_path() .  '/../storage/Interfaces/Has' . Str::studly($columnName) . 'Interface.php';
         $this->parser($variables, $stubPath, $outputPath);
     }
+
+    /**
+     * @return void
+     */
+    public function date()
+    {
+        $colName = $this->columnName;
+        $col = [
+            'name' => $colName,
+            'const' => Str::of($colName)->snake()->upper(),
+            'studly' => Str::of($colName)->studly()
+        ];
+        $generated = view('CG::samples.columns.DateInterface', [
+            'col' => $col
+        ])->render();
+
+        file_put_contents(app_path() .  '/../storage/Interfaces/Has' . Str::studly($colName) . 'Interface.php', $generated);
+    }
 }

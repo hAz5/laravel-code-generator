@@ -24,7 +24,7 @@ class {{ Str::studly($model) }}Controller extends Controller
     */
     public function index({{ Str::studly($model) }}Filter $filters, Request $request): AnonymousResourceCollection
     {
-        return {{ Str::studly($model) }}Resource::collection(Email::filter($filters)->paginate($this->getPageSize($request)));
+        return {{ Str::studly($model) }}Resource::collection({{ Str::studly($model) }}::filter($filters)->paginate($this->getPageSize($request)));
     }
 
     /**
@@ -52,7 +52,7 @@ class {{ Str::studly($model) }}Controller extends Controller
     }
 
     /**
-     * @param {{ Str::studly($model) }}Request    $request      PriceTypeRequest.
+     * @param {{ Str::studly($model) }}Request    $request      Request.
      * @param {{ Str::studly($model) }}Repository $repository   Repository.
      * @param {{ Str::studly($model) }}           ${{ Str::camel($model) }} {{ Str::studly($model) }}.
      *
@@ -85,7 +85,7 @@ class {{ Str::studly($model) }}Controller extends Controller
             return $this->getResponse(
                 ['message' => __(
                     'error.can_not_delete_parameter',
-                    ['parameter' => __('error.{{ Str::studly($model) }}')]
+                    ['parameter' => __('error.{{ Str::snake($model) }}')]
                 )],
                 Response::HTTP_CONFLICT
             );

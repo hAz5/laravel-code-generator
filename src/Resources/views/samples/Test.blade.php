@@ -409,13 +409,13 @@ $this->assertArrayHasKey({{ $studlyModelName }}::{{ $col['const'] }}, $content);
         return $this->getJson(route('addresses.index', [Str::camel($filter) => $value, 'per_page' => 20]));
     }
 
-@foreach($columns as $column)
+@foreach($columns as $col)
     /**
     * @test
     */
-    public function filterAddressesByIsPostOffice()
+    public function filter{{ $studlyModelName }}ItemsBy{{ $col['studly'] }}()
     {
-        $responseArray = $this->filterAddressTable({ $studlyModelName }}::{{ $col['const'] }}, 1);
+        $responseArray = $this->filterAddressTable({{ $studlyModelName }}::{{ $col['const'] }}, 1);
         $response = $responseArray['response'];
         $updatedRecords = $responseArray['updatedRecordsCount'];
         $response->assertOk();

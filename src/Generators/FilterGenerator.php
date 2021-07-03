@@ -20,6 +20,8 @@ class FilterGenerator extends CodeGenerator
             case 'float' :
             case 'string' :
                 return $type;
+            default:
+                return 'string';
         }
 
     }

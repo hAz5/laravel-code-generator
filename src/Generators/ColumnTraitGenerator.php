@@ -41,6 +41,24 @@ class ColumnTraitGenerator extends CodeGenerator
     /**
      * @return void
      */
+    public function date()
+    {
+        $colName = $this->columnName;
+        $col = [
+            'name' => $colName,
+            'const' => Str::of($colName)->snake()->upper(),
+            'studly' => Str::of($colName)->studly()
+        ];
+        $generated = view('CG::samples.columns.Date', [
+            'col' => $col
+        ])->render();
+
+        file_put_contents($this->getColumnTraitFullPath($colName), $generated);
+    }
+
+    /**
+     * @return void
+     */
     public function string()
     {
         $columnName = $this->columnName;
