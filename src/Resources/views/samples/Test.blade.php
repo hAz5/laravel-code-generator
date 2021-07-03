@@ -373,4 +373,60 @@ $this->assertArrayHasKey({{ $studlyModelName }}::{{ $col['const'] }}, $content);
     $this->assertArrayHasKey({{ $studlyModelName }}::{{ $col['studly'] }}, $content);
 @endforeach
     }
+
+    /**
+    *
+    * @param string $filter Filter.
+    * @param array|string|float|integer $value Filter Value.
+    * @param String $defaultValue Default Value.
+    * @param boolean $isUnique Unique Field.
+    *
+    * @return array|TestResponse
+    */
+    private function filter{{ $studlyModelName }}Table(
+    string $filter,
+    array|string|int|float $value,
+    string $defaultValue = 'null',
+    bool $isUnique = false
+    ): array|TestResponse
+    {
+        $this->actingAsUserWithPermission(PermissionTitle::GET_ALL_ADDRESSES);
+        Address::factory(rand(10, 20))->create();
+
+        if (!is_array($value)) {
+            $default = is_numeric($value) ? 0 : $defaultValue;
+            $updatedRecordsCount = $isUnique ? 1 : rand(2, 5);
+            // update random record in {{ $studlyModelName }} table
+            $updatedRecordsIds = {{ $studlyModelName }}::inRandomOrder()->take($updatedRecordsCount)->get()->pluck({{ $studlyModelName }}::ID)->toArray();
+{{ $studlyModelName }}::whereIn({{ $studlyModelName }}::ID, $updatedRecordsIds)->update([$filter => $value]);
+{{ $studlyModelName }}::whereNotIn({{ $studlyModelName }}::ID, $updatedRecordsIds)->where($filter, $value)->update([$filter => $default]);
+            return [
+                'response' => $this->getJson(route('{{ $studlyModelName }}.index', [Str::camel($filter) => $value, 'per_page' => 20])),
+                'updatedRecordsCount' => $updatedRecordsCount
+            ];
+        }
+
+        return $this->getJson(route('addresses.index', [Str::camel($filter) => $value, 'per_page' => 20]));
+    }
+
+@foreach($columns as $column)
+    /**
+    * @test
+    */
+    public function filterAddressesByIsPostOffice()
+    {
+        $responseArray = $this->filterAddressTable({ $studlyModelName }}::{{ $col['const'] }}, 1);
+        $response = $responseArray['response'];
+        $updatedRecords = $responseArray['updatedRecordsCount'];
+        $response->assertOk();
+        $this->assertTrue($response->getOriginalContent()->count() === $updatedRecords);
+        $this->assertTrue(
+            count(
+                array_unique(
+                    $response->getOriginalContent()->pluck({{ $studlyModelName }}::{{ $col['const'] }})->toArray()
+                )
+            ) === 1
+        );
+    }
+@endforeach
 }
