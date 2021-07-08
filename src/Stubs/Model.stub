@@ -20,26 +20,26 @@ class {{ model }} extends BaseModel implements {{ modelInterface }}
     /**
      * Create new ContactGroup.
      *
-     * @param array $data Data.
+     * @param array $attributes Data.
      *
      * @return {{ modelInterface }}
      */
-    public static function createObject(array $data): {{ modelInterface }}
+    public static function createObject(array $attributes): {{ modelInterface }}
     {
 
-        return self::create($data);
+        return self::create($attributes);
     }
 
     /**
      * update existing ContactGroup.
      *
-     * @param array $data Data.
+     * @param array $attributes Data.
      *
      * @return {{ modelInterface }}
      */
-    public function updateObject(array $data): {{ modelInterface }}
+    public function updateObject(array $attributes): {{ modelInterface }}
     {
-        $this->update($data);
+        $this->update($attributes);
 
         return $this;
     }

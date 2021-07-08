@@ -26,6 +26,9 @@ class ModelGenerator extends CodeGenerator
         $columnNames = [];
         $attributes = [];
         foreach ($columns as $column) {
+            if($column['isTranslate']){
+                continue;
+            }
             $columnName = Str::of($column['fieldName'])->camel();
             $columnsTrait [] = 'use Has' . Str::studly($column['fieldName']) . 'Trait;';
             $columnNames[] = 'self::' . Str::of($columnName)->snake()->upper();

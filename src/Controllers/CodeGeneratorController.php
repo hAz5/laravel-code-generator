@@ -36,6 +36,9 @@ class CodeGeneratorController extends Controller
         // generate model filter
         (new FilterGenerator('', ''))->model($model['name'], $columns);
         foreach ($columns as $column) {
+            if ($column['isTranslate']){
+                continue;
+            }
             (new InterfaceGenerator($column['fieldName'], $column['type']))->generate();
             (new ColumnTraitGenerator($column['fieldName'], $column['type']))->generate();
             (new FilterGenerator($column['fieldName'], $column['type']))->generate();
@@ -48,8 +51,9 @@ class CodeGeneratorController extends Controller
         (new ModelGenerator())->model($model['name'], $columns);
         (new \CG\Generators\RequestGenerator('', ''))->create($model['name'], $columns);
         (new \CG\Generators\ResourceGenerator('', ''))->create($model['name'], $columns);
+        (new \CG\Generators\MigrationGenerator('', ''))->create($model['name'], $columns);
         $controllerGenerator = new \CG\Generators\ControllerGenerator('', '');
-        $controllerGenerator->isSimpleController = false;
+        $controllerGenerator->isSimpleController = $model['hasTranslation'];
         $controllerGenerator->create($model['name']);
         (new \CG\Generators\RepositoryGenerator('', ''))->create($model['name']);
         (new \CG\Generators\TestGenerator('', ''))->create($model['name'], $columns);

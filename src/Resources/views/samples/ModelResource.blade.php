@@ -16,11 +16,20 @@ class {{ Str::studly($model) }}Resource extends JsonResource
     {
         return [
 @foreach($columns as $column)
-    @if($column['type'] == \CG\Generators\CodeGenerator::COLUMN_FOREIGN)
+    @if($column['type'] == \CG\Generators\CodeGenerator::COLUMN_FOREIGN || $column['isTranslate'])
         @continue
     @endif
 {{ Str::studly($model) }}::{{ Str::of($column['fieldName'])->snake()->upper() }} => $this->get{{Str::studly($column['fieldName'])}}(),
 @endforeach
+
+@foreach($columns as $column)
+    @if(!$column['isTranslate'])
+        @continue
+    @endif
+    {{ Str::studly($model) }}Translation::{{ Str::of($column['fieldName'])->snake()->upper() }} => $this->get{{Str::studly($column['fieldName'])}}(),
+@endforeach
+
+
 @foreach($columns as $column)
     @if($column['type'] == \CG\Generators\CodeGenerator::COLUMN_FOREIGN)
                     '{{ Str::of($column['fieldName'])->beforeLast('_id')->camel() }}' => $this->whenLoaded(

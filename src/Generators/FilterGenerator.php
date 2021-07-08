@@ -32,6 +32,9 @@ class FilterGenerator extends CodeGenerator
         $filtersName = [];
         $attributes = [];
         foreach ($columns as $column) {
+            if ($column['isTranslate']) {
+                continue;
+            }
             $filter = Str::of($column['fieldName'])->camel();
             $filtersTrait [] = 'use Filter' . Str::studly($column['fieldName']) . 'Trait;';
             $filtersName [] = '\'' . $filter . '\'';

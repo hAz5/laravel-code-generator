@@ -13,7 +13,7 @@ trait Filter{{ columnStudyCase }}Trait
      *
      * @return Builder
      */
-    public function {{ columnCamel }}GreaterThan(integer ${{ columnCamel }}): Builder
+    public function {{ columnCamel }}GreaterThan(int ${{ columnCamel }}): Builder
     {
         return $this->builder->where{{ columnStudyCase }}GreaterThan(${{ columnCamel }});
     }
@@ -25,7 +25,7 @@ trait Filter{{ columnStudyCase }}Trait
      *
      * @return Builder
      */
-    public function {{ columnCamel }}LessThan(integer ${{ columnCamel }}): Builder
+    public function {{ columnCamel }}LessThan(int ${{ columnCamel }}): Builder
     {
         return $this->builder->where{{ columnStudyCase }}LessThan(${{ columnCamel }});
     }
