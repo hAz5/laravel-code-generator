@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Testing\TestResponse;
 use Illuminate\Support\Str;
 use Tests\TestCase;
+use Carbon\Carbon;
 
 class {{ $studlyModelName }}Test extends TestCase
 {
@@ -102,7 +103,7 @@ class {{ $studlyModelName }}Test extends TestCase
             $updatedRecordsCount = $isUnique ? 1 : rand(2, 5);
             $updatedRecordsIds = {{$studlyModelName}}::inRandomOrder()->take($updatedRecordsCount)->get()->pluck({{$studlyModelName}}::ID)->toArray();
     {{$studlyModelName}}::whereIn({{$studlyModelName}}::ID, $updatedRecordsIds)->update([$filter => $value instanceof Carbon ? $value->toDateTimeString() : $value]);
-    {{$studlyModelName}}::whereNotIn({{$studlyModelName}}::ID, $updatedRecordsIds)->where($filter, $value)
+    {{$studlyModelName}}::whereNotIn({{$studlyModelName}}::ID, $updatedRecordsIds)
                 ->update([$filter => $default instanceof Carbon ? $default->toDateTimeString() : $default]);
             return [
                 'response' => $this->getJson(route('{{$modelRouteName}}.index',
@@ -358,7 +359,7 @@ $this->assertEquals(${{$camelModelName}}->get{{$column['studly']}}(), $fake->get
         $this->actingAsUserWithPermission(PermissionTitle::DELETE_{{$studlyUpperModelName}});
         $responseArray = $this->delete{{$studlyModelName}}();
         $responseArray['response']->assertNoContent();
-        $this->get{{$studlyModelName}}($responseArray['{{$camelModelName}}']->getId())->assertNotFound();
+        $this->get{{$studlyModelName}}($responseArray['resource']->getId())->assertNotFound();
     }
 
     /**
@@ -469,7 +470,7 @@ route('{{$modelRouteName}}.update', ['{{$snakeModelName}}' => ${{$camelModelName
     public function filter{{$pluralStudlyModelName}}ByIds()
     {
         $ids = [1, 2, 5, 6];
-        $response = $this->filterProductDimensionTable({{$studlyModelName}}::ID . 's', $ids);
+        $response = $this->filter{{$studlyModelName}}Table({{$studlyModelName}}::ID . 's', $ids);
         $response->assertOk();
         $this->assertTrue($response->getOriginalContent()->count() === count($ids));
         $responseIds = $response->getOriginalContent()->pluck({{$studlyModelName}}::ID)->toArray();

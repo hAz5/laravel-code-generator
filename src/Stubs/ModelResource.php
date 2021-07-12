@@ -4,7 +4,8 @@ namespace App\Http\Resources\Contact;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class {{studlyModelName}}Resource extends JsonResource
+class {{studlyModelName}
+}Resource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -12,10 +13,10 @@ class {{studlyModelName}}Resource extends JsonResource
      * @param \Illuminate\Http\Request $request
      * @return array
      */
-    public function toArray($request)
-    {
-        return [
-              {{fields}}
+public function toArray($request)
+{
+    return [
+          {{fields}}
 
 //            'country' => $this->whenLoaded(
 //                'country',
@@ -23,6 +24,6 @@ class {{studlyModelName}}Resource extends JsonResource
 //                    return new CountryResource($this->country);
 //                }
 //            ),
-        ];
-    }
+    ];
+}
 }

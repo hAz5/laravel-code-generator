@@ -19,7 +19,6 @@ class PostmanGenerator extends CodeGenerator
             case self::COLUMN_BOOLEAN:
                 return rand(0, 1);
         }
-
     }
 
     public function create($model, array $columns): array
@@ -46,6 +45,6 @@ class PostmanGenerator extends CodeGenerator
         file_put_contents($directoryPath . '/' . Str::studly($model) . 'Postman.json', json_encode($data));
 
 
-       return $data;
+        return $data;
     }
 }

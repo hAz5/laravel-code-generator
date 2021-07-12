@@ -3,6 +3,7 @@
 namespace CG\Generators;
 
 use Illuminate\Support\Str;
+
 use function PHPUnit\Framework\directoryExists;
 
 abstract class CodeGenerator implements CodeGeneratorInterface

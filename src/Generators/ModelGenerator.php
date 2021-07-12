@@ -13,7 +13,6 @@ class ModelGenerator extends CodeGenerator
 {
     public function __construct()
     {
-
     }
 
     /**
@@ -26,7 +25,7 @@ class ModelGenerator extends CodeGenerator
         $columnNames = [];
         $attributes = [];
         foreach ($columns as $column) {
-            if($column['isTranslate']){
+            if ($column['isTranslate']) {
                 continue;
             }
             $columnName = Str::of($column['fieldName'])->camel();

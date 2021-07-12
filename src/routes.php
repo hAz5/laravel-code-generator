@@ -3,6 +3,7 @@
 use CG\Controllers\CodeGeneratorController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+
 $columns = [
     [
         'fieldName' => 'is_default',
@@ -40,7 +41,7 @@ $columns = [
         'isTranslate' => true,
     ],
 ];
-Route::get('/masoud', function () use ($columns){
+Route::get('/masoud', function () use ($columns) {
     $model = 'productDimension';
 
 //    dd(Str::of('sale_system_id')->beforeLast('_id')->camel()); // for foreign)

@@ -15,7 +15,7 @@ class InterfaceGenerator extends CodeGenerator
         $modelTableName = $this->modelTableName ?? (string)Str::of($model)->snake()->plural();
         $columnsInterface = [];
         foreach ($columns as $column) {
-            if ($column['isTranslate']){
+            if ($column['isTranslate']) {
                 continue;
             }
             $columnsInterface[] = 'Has' . Str::studly($column['fieldName']) . 'Interface';

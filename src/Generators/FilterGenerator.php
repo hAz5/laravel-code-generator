@@ -12,18 +12,17 @@ class FilterGenerator extends CodeGenerator
     public function attributesType($type): string
     {
         switch ($type) {
-            case 'integer' :
+            case 'integer':
             case 'foreign':
                 return 'int';
-            case 'boolean' :
+            case 'boolean':
                 return 'bool';
-            case 'float' :
-            case 'string' :
+            case 'float':
+            case 'string':
                 return $type;
             default:
                 return 'string';
         }
-
     }
 
     public function model($model, $columns)

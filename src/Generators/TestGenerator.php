@@ -24,7 +24,7 @@ class TestGenerator extends CodeGenerator
 
     /**
      * @param string $model
-     * @param array $columns
+     * @param array  $columns
      */
     public function create(string $model, array $columns): void
     {

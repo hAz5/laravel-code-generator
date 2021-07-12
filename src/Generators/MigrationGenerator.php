@@ -19,7 +19,6 @@ class MigrationGenerator extends CodeGenerator
             case self::COLUMN_BOOLEAN:
                 return rand(0, 1);
         }
-
     }
 
     public function create(string $model, array $columns): void

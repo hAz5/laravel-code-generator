@@ -36,7 +36,7 @@ class CodeGeneratorController extends Controller
         // generate model filter
         (new FilterGenerator('', ''))->model($model['name'], $columns);
         foreach ($columns as $column) {
-            if ($column['isTranslate']){
+            if ($column['isTranslate']) {
                 continue;
             }
             (new InterfaceGenerator($column['fieldName'], $column['type']))->generate();
@@ -62,5 +62,4 @@ class CodeGeneratorController extends Controller
             'postman' =>  (new \CG\Generators\PostmanGenerator('', ''))->create($model['name'], $columns)
         ], 400);
     }
-
 }
