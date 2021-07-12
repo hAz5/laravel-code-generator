@@ -128,7 +128,7 @@ class {{ $studlyModelName }}Test extends TestCase
         $updatedRecords = $responseArray['updatedRecordsCount'];
         $response->assertOk();
         $response = $response->getOriginalContent();
-        $this->assertTrue($response->getOriginalContent()->count() === $updatedRecords);
+        $this->assertTrue($response->count() === $updatedRecords);
         $this->assertTrue(count(array_unique($response->pluck($filter)->toArray())) === 1);
     }
 
@@ -319,7 +319,7 @@ $this->assertEquals(${{$camelModelName}}->get{{$column['studly']}}(), $fake->get
             $fakeTranslate = {{$studlyModelName}}Translation::factory()->make();
         @endif
 
-    $response = $this->postJson(
+    $response = $this->putJson(
     route('{{$modelRouteName}}.update', ['{{$snakeModelName}}' => ${{$camelModelName}}->getId()]),
     [
 @foreach($columns as $column)

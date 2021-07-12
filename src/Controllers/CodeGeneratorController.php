@@ -53,7 +53,7 @@ class CodeGeneratorController extends Controller
         (new \CG\Generators\ResourceGenerator('', ''))->create($model['name'], $columns);
         (new \CG\Generators\MigrationGenerator('', ''))->create($model['name'], $columns);
         $controllerGenerator = new \CG\Generators\ControllerGenerator('', '');
-        $controllerGenerator->isSimpleController = $model['hasTranslation'];
+        $controllerGenerator->isSimpleController = !$model['hasTranslation'];
         $controllerGenerator->create($model['name']);
         (new \CG\Generators\RepositoryGenerator('', ''))->create($model['name']);
         (new \CG\Generators\TestGenerator('', ''))->create($model['name'], $columns);
