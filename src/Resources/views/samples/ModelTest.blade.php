@@ -15,9 +15,9 @@ class {{ $studlyModelName }}Test extends TestCase
     {
         parent::setUp();
         @if(collect($columns)->where('isTranslate')->count() > 0)
-            {{ $studlyModelName }}::factory(rand(10, 20))->has({{$studlyModelName}}Translation::factory(), 'translations')->create();
+            {{ $studlyModelName }}::factory()->count(5)->has({{$studlyModelName}}Translation::factory(), 'translations')->create();
         @else
-            {{ $studlyModelName }}::factory(rand(10, 20))->create();
+            {{ $studlyModelName }}::factory()->count(5)->create();
         @endif
     }
     /**
@@ -101,18 +101,30 @@ class {{ $studlyModelName }}Test extends TestCase
         if (!is_array($value)) {
             $default = $this->getDefaultValue($value, $defaultValue);
             $updatedRecordsCount = $isUnique ? 1 : rand(2, 5);
-            $updatedRecordsIds = {{$studlyModelName}}::inRandomOrder()->take($updatedRecordsCount)->get()->pluck({{$studlyModelName}}::ID)->toArray();
-    {{$studlyModelName}}::whereIn({{$studlyModelName}}::ID, $updatedRecordsIds)->update([$filter => $value instanceof Carbon ? $value->toDateTimeString() : $value]);
+            $updatedRecordsIds = {{$studlyModelName}}::inRandomOrder()
+->take($updatedRecordsCount)
+->get()
+->pluck({{$studlyModelName}}::ID)
+->toArray();
+    {{$studlyModelName}}::whereIn({{$studlyModelName}}::ID, $updatedRecordsIds)
+->update([$filter => $value instanceof Carbon ? $value->toDateTimeString() : $value]);
     {{$studlyModelName}}::whereNotIn({{$studlyModelName}}::ID, $updatedRecordsIds)
                 ->update([$filter => $default instanceof Carbon ? $default->toDateTimeString() : $default]);
             return [
-                'response' => $this->getJson(route('{{$modelRouteName}}.index',
-                    [Str::camel($filter) => $value instanceof Carbon ? $value->toDateTimeString() : $value, 'per_page' => 20])),
+                'response' => $this->getJson(
+route('{{$modelRouteName}}.index',
+                    [
+Str::camel($filter) => $value instanceof Carbon ? $value->toDateTimeString() : $value, 'per_page' => 20
+]
+)
+),
                 'updatedRecordsCount' => $updatedRecordsCount
             ];
         }
 
-        return $this->getJson(route('{{$modelRouteName}}.index', [Str::camel($filter) => $value, 'per_page' => 20]));
+        return $this->getJson(
+route('{{$modelRouteName}}.index', [Str::camel($filter) => $value, 'per_page' => 20])
+);
     }
 
     /**
@@ -301,7 +313,8 @@ $this->assertEquals(${{$camelModelName}}->get{{$column['studly']}}(), $fake->get
 @if(collect($columns)->where('isTranslate', true)->count() > 0)
     @foreach($columns as $column)
         @if(!$column['isTranslate']) @continue @endif
-        $this->assertEquals(${{$camelModelName}}->translations->first()->get{{$column['studly']}}(), $fakeTranslate->get{{$column['studly']}}());
+        $this->assertEquals(${{$camelModelName}}->translations
+        ->first()->get{{$column['studly']}}(), $fakeTranslate->get{{$column['studly']}}());
     @endforeach
 @endif
 
@@ -345,7 +358,9 @@ $this->assertEquals(${{$camelModelName}}->get{{$column['studly']}}(), $fake->get
 @if(collect($columns)->where('isTranslate', true)->count() > 0)
     @foreach($columns as $column)
         @if(!$column['isTranslate']) @continue @endif
-        $this->assertEquals(${{$camelModelName}}->translations->first()->get{{$column['studly']}}(), $fakeTranslate->get{{$column['studly']}}());
+        $this->assertEquals(${{$camelModelName}}
+        ->translations
+        ->first()->get{{$column['studly']}}(), $fakeTranslate->get{{$column['studly']}}());
     @endforeach
 @endif
 
@@ -469,7 +484,7 @@ route('{{$modelRouteName}}.update', ['{{$snakeModelName}}' => ${{$camelModelName
     */
     public function filter{{$pluralStudlyModelName}}ByIds()
     {
-        $ids = [1, 2, 5, 6];
+        $ids = [1, 3];
         $response = $this->filter{{$studlyModelName}}Table({{$studlyModelName}}::ID . 's', $ids);
         $response->assertOk();
         $this->assertTrue($response->getOriginalContent()->count() === count($ids));
@@ -485,10 +500,16 @@ route('{{$modelRouteName}}.update', ['{{$snakeModelName}}' => ${{$camelModelName
         {
             @if($column['enum'] == true)
                 $data = $this->choseRandomEnum({{$studlyModelName}}::${{$column['camel']}}s);
-                $responseArray = $this->filter{{$studlyModelName}}Table({{$studlyModelName}}::{{$column['const']}}, $data['value'], $data['defaultValue']);
+                $responseArray = $this->filter{{$studlyModelName}}Table(
+                {{$studlyModelName}}::{{$column['const']}},
+                $data['value'], $data['defaultValue']
+                );
             @else
                 $value = {{$studlyModelName}}::factory()->make()->get{{$column['studly']}}();
-                $responseArray = $this->filter{{$studlyModelName}}Table({{$studlyModelName}}::{{$column['const']}}, $value);
+                $responseArray = $this->filter{{$studlyModelName}}Table(
+                {{$studlyModelName}}::{{$column['const']}},
+                $value
+                );
             @endif
             $this->responseValidator({{$studlyModelName}}::{{$column['const']}}, $responseArray);
         }
