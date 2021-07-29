@@ -144,6 +144,28 @@ class FilterGenerator extends CodeGenerator
     /**
      * @return void
      */
+    public function date()
+    {
+        $columnName = $this->columnName;
+        $variables = [
+            '{{ columnStudyCase }}' => Str::studly($columnName),
+            '{{ columnCamel }}' => Str::camel($columnName),
+            '{{ column }}' => $columnName,
+            '{{ columnPlural }}' => Str::camel(Str::plural($columnName)),
+            '{{ columnConstName }}' => Str::upper($columnName),
+            '{{ modelCamelcase }}' => Str::camel(Str::beforeLast($columnName, '_id')),
+            '{{ columnUpperCase }}' => Str::of($columnName)->snake(' ')->studly(),
+
+        ];
+
+        $stubPath = __DIR__ . '/../Stubs/ColumnFilters/FilterDateTrait.stub';
+        $outputPath = app_path() . '/../storage/Filters/Filter' . Str::studly($columnName) . 'Trait.php';
+        $this->parser($variables, $stubPath, $outputPath);
+    }
+
+    /**
+     * @return void
+     */
     public function string()
     {
         $columnName = $this->columnName;

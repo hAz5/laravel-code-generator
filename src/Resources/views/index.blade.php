@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>code generator</title>
 
-        <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+        <link href="{{asset('css/materialdesignicons.min.css')}}" rel="stylesheet">
 
         <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
         <script src="{{ asset('js/js.js') }}" defer></script>

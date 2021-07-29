@@ -70,14 +70,18 @@ class {{ $studlyModelName }}Test extends TestCase
     * @param mixed $value
     * @param string $defaultValue
     *
-    * @return mixed
+    * @return  mixed
     */
     private function getDefaultValue(mixed $value, string $defaultValue): mixed
     {
-        $default = is_numeric($value) ? 0 : $defaultValue;
-        $default = is_bool($value) ? !$value: $default;
+        $defaultValue = is_numeric($value) ? ($value + 1) : $defaultValue;
+        $defaultValue = is_bool($value) ? !$value : $defaultValue;
+        if ($value instanceof Carbon) {
+            $defaultValue = clone $value;
+            $defaultValue->addDays(2);
+        }
 
-        return $value instanceof Carbon ? $value->addDays(2) : $default;
+        return $defaultValue;
     }
 
    /**
@@ -92,7 +96,7 @@ class {{ $studlyModelName }}Test extends TestCase
     private function filter{{$studlyModelName}}Table(
     string $filter,
     mixed $value,
-    string $defaultValue = 'null',
+    string $defaultValue = '--@@--',
     bool $isUnique = false
 ): array|TestResponse
 {
@@ -101,23 +105,18 @@ class {{ $studlyModelName }}Test extends TestCase
         if (!is_array($value)) {
             $default = $this->getDefaultValue($value, $defaultValue);
             $updatedRecordsCount = $isUnique ? 1 : rand(2, 5);
-            $updatedRecordsIds = {{$studlyModelName}}::inRandomOrder()
-->take($updatedRecordsCount)
-->get()
-->pluck({{$studlyModelName}}::ID)
-->toArray();
-    {{$studlyModelName}}::whereIn({{$studlyModelName}}::ID, $updatedRecordsIds)
-->update([$filter => $value instanceof Carbon ? $value->toDateTimeString() : $value]);
-    {{$studlyModelName}}::whereNotIn({{$studlyModelName}}::ID, $updatedRecordsIds)
-                ->update([$filter => $default instanceof Carbon ? $default->toDateTimeString() : $default]);
+            $value = $value instanceof Carbon ? $value->toDateTimeString() : $value;
+            $default = $default instanceof Carbon ? $default->toDateTimeString() : $default;
+            $updatedRecordsIds = {{$studlyModelName}}::inRandomOrder()->take($updatedRecordsCount)->get()->pluck({{$studlyModelName}}::ID)->toArray();
+    {{$studlyModelName}}::whereIn({{$studlyModelName}}::ID, $updatedRecordsIds)->update([$filter => $value]);
+    $query = {{$studlyModelName}}::query()->whereNotIn({{$studlyModelName}}::ID, $updatedRecordsIds);
+    if ($isUnique){
+        $query->where($filter , $value);
+    }
+    $query->update([$filter => $default]);
             return [
-                'response' => $this->getJson(
-route('{{$modelRouteName}}.index',
-                    [
-Str::camel($filter) => $value instanceof Carbon ? $value->toDateTimeString() : $value, 'per_page' => 20
-]
-)
-),
+                'response' => $this->getJson(route('{{$modelRouteName}}.index',
+                    [Str::camel($filter) => $value, 'per_page' => 20])),
                 'updatedRecordsCount' => $updatedRecordsCount
             ];
         }
@@ -392,7 +391,7 @@ $this->assertEquals(${{$camelModelName}}->get{{$column['studly']}}(), $fake->get
         $content = $response->getOriginalContent()->toArray();
 
 @foreach($columns as $column)
-@if(!$column['nullable'] || $column['isTranslate']) @continue @endif
+@if($column['nullable'] || $column['isTranslate']) @continue @endif
 $this->assertArrayHasKey({{$studlyModelName}}::{{$column['const']}}, $content);
 @endforeach
     }
@@ -413,7 +412,7 @@ $this->assertArrayHasKey({{$studlyModelName}}::{{$column['const']}}, $content);
         /** @var array $content */
         $content = $response->getOriginalContent()->toArray();
 @foreach($columns as $column)
-    @if(!$column['nullable']) @continue @endif
+    @if($column['nullable'] || $column['isTranslate']) @continue @endif
     $this->assertArrayHasKey({{$studlyModelName}}::{{$column['const']}}, $content);
 @endforeach
     }
@@ -484,12 +483,18 @@ route('{{$modelRouteName}}.update', ['{{$snakeModelName}}' => ${{$camelModelName
     */
     public function filter{{$pluralStudlyModelName}}ByIds()
     {
-        $ids = [1, 3];
+        $ids = {{$studlyModelName}}::inRandomOrder()
+            ->take(rand(2, {{$studlyModelName}}::count()))
+            ->get()
+            ->pluck({{$studlyModelName}}::ID)
+            ->toArray();
         $response = $this->filter{{$studlyModelName}}Table({{$studlyModelName}}::ID . 's', $ids);
         $response->assertOk();
         $this->assertTrue($response->getOriginalContent()->count() === count($ids));
         $responseIds = $response->getOriginalContent()->pluck({{$studlyModelName}}::ID)->toArray();
-        $this->assertTrue(asort($responseIds) === asort($ids));
+        sort($responseIds);
+        sort($ids);
+        $this->assertTrue($responseIds === $ids);
     }
 @foreach($columns as $column)
 @if($column['isTranslate']) @continue @endif

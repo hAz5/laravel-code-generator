@@ -9,22 +9,22 @@ trait Filter{{ columnStudyCase }}Trait
      /**
       * Filter by {{ columnStudyCase }}.
       *
-      * @param integer ${{ columnCamel }} {{ columnStudyCase }}.
+      * @param string ${{ columnCamel }} {{ columnStudyCase }}.
       *
       * @return Builder
       */
-     public function {{ columnCamel }}(int ${{ columnCamel }}): Builder
+     public function {{ columnCamel }}(string ${{ columnCamel }}): Builder
      {
             return $this->builder->where{{ columnStudyCase }}(${{ columnCamel }});
      }
     /**
      * Filter by Greater Than {{ columnStudyCase }}.
      *
-     * @param integer ${{ columnCamel }} {{ columnStudyCase }}.
+     * @param string ${{ columnCamel }} {{ columnStudyCase }}.
      *
      * @return Builder
      */
-    public function {{ columnCamel }}GreaterThan(int ${{ columnCamel }}): Builder
+    public function {{ columnCamel }}GreaterThan(string ${{ columnCamel }}): Builder
     {
         return $this->builder->where{{ columnStudyCase }}GreaterThan(${{ columnCamel }});
     }
@@ -32,11 +32,11 @@ trait Filter{{ columnStudyCase }}Trait
     /**
      * Filter by Less Than {{ columnStudyCase }}.
      *
-     * @param integer ${{ columnCamel }} {{ columnStudyCase }}.
+     * @param string ${{ columnCamel }} {{ columnStudyCase }}.
      *
      * @return Builder
      */
-    public function {{ columnCamel }}LessThan(int ${{ columnCamel }}): Builder
+    public function {{ columnCamel }}LessThan(string ${{ columnCamel }}): Builder
     {
         return $this->builder->where{{ columnStudyCase }}LessThan(${{ columnCamel }});
     }

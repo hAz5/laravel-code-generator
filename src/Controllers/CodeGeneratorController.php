@@ -60,6 +60,6 @@ class CodeGeneratorController extends Controller
 
         return response([
             'postman' =>  (new \CG\Generators\PostmanGenerator('', ''))->create($model['name'], $columns)
-        ], 400);
+        ]);
     }
 }

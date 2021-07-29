@@ -6,6 +6,17 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait Filter{{ columnStudyCase }}Trait
 {
+     /**
+     * Filter by {{ columnStudyCase }}.
+     *
+     * @param float ${{ columnCamel }} {{ columnStudyCase }}.
+     *
+     * @return Builder
+     */
+     public function {{ columnCamel }}(float ${{ columnCamel }}): Builder
+     {
+        return $this->builder->where{{ columnStudyCase }}(${{ columnCamel }});
+     }
     /**
      * Filter by Greater Than {{ columnStudyCase }}.
      *

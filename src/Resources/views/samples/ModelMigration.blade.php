@@ -43,6 +43,12 @@ class Create{{Str::of($model)->studly()->plural()}}Table extends Migration
         $table->boolean( {{ Str::studly($model) }}::{{ Str::of($column['fieldName'])->snake()->upper()}});
     @endif
 @endforeach
+
+@foreach($columns as $column)
+    @if($column['type'] == \CG\Generators\CodeGenerator::COLUMN_DATE)
+        $table->timestamp( {{ Str::studly($model) }}::{{ Str::of($column['fieldName'])->snake()->upper()}});
+    @endif
+@endforeach
             $table->timestamps();
         });
     }

@@ -27,6 +27,6 @@ trait Filter{{ columnStudyCase }}Trait
      */
     protected function {{ columnCamel }}s(array ${{ columnCamel }}s): Builder
     {
-        return $this->builder->where{{ columnStudyCase }}sIn(${{ columnCamel }}s);
+        return $this->builder->where{{ columnStudyCase }}In(${{ columnCamel }}s);
     }
 }
