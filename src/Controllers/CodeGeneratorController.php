@@ -58,6 +58,12 @@ class CodeGeneratorController extends Controller
         (new \CG\Generators\RepositoryGenerator('', ''))->create($model['name']);
         (new \CG\Generators\TestGenerator('', ''))->create($model['name'], $columns);
 
+        if (false) {
+            $bundle = 'Cron';
+            (new \CG\Generators\BuilderGenerator('', ''))->create($model['name'], $columns, $bundle);
+            (new \CG\Generators\SimpleModelInterfaceGenerator('', ''))->create($model['name'], $columns, $bundle);
+        }
+
         return response([
             'postman' =>  (new \CG\Generators\PostmanGenerator('', ''))->create($model['name'], $columns)
         ]);
