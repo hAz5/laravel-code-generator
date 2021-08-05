@@ -1,11 +1,13 @@
 {!! '<?php' !!}
 
-namespace App\Interfaces\Traits;
+namespace Solutions\Interfaces;
 
 use Illuminate\Database\Eloquent\Builder;
 
 interface Has{{$col['studly']}}Interface
 {
+    const {{ $col['const'] }} = '{{ $col['name'] }}';
+
     /**
      * @param Builder $builder   Builder.
      * @param string  $date      Date.

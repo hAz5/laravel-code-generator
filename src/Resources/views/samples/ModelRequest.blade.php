@@ -17,7 +17,7 @@ class {{$studlyModelName}}Request extends BaseRequest
         return [
 @foreach($columns as $column)
     @if($column['type'] == \CG\Generators\CodeGenerator::COLUMN_FOREIGN)
-        {{ $studlyModelName }}::{{$column['const'] }} => ['required', Rule::exists({{$column['model']}}::TABLE, {{$column['model']}}::ID)],
+        {{ $studlyModelName }}::{{$column['const'] }} => ['required', 'numeric', Rule::exists({{$column['model']}}::TABLE, {{$column['model']}}::ID)],
     @endif
 @endforeach
 @foreach($columns as $column)
