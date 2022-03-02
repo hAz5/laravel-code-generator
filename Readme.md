@@ -1,1 +1,1 @@
-test code
+`Laravel code Generator (Alpha)`
