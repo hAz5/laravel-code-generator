@@ -1,16 +1,18 @@
 `Laravel code Generator (Alpha)`
 generate laravel files
 like as :
-Migrations
-Controller
-Model
-Repository
-Filter
-Seeder
-Factory
-Tests
-Request
-Response
+- [x] Migrations
+- [x] Controller
+- [x] Model
+- [x] Repository
+- [x] Filter
+- [x] Seeder
+- [x] Factory
+- [x] Tests
+- [x] Request
+- [x] Response
+
+### make sure to
 
 ```
 php artisan vendor:publish
