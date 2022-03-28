@@ -12,3 +12,6 @@ Tests
 Request
 Response
 
+```
+php artisan vendor:publish
+```
