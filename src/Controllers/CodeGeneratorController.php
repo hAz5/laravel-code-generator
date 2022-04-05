@@ -36,6 +36,9 @@ class CodeGeneratorController extends Controller
         // generate model filter
         (new FilterGenerator('', ''))->model($model['name'], $columns);
         foreach ($columns as $column) {
+            if (empty($column['fieldName'])) {
+                continue;
+            }
             if ($column['isTranslate']) {
                 continue;
             }
