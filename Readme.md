@@ -6,8 +6,6 @@ like as :
 - [x] Model
 - [x] Repository
 - [x] Filter
-- [x] Seeder
-- [x] Factory
 - [x] Tests
 - [x] Request
 - [x] Response
@@ -17,3 +15,4 @@ like as :
 ```
 php artisan vendor:publish
 ```
+
